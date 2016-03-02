@@ -1,6 +1,6 @@
-var Player = function(kbh, position) {
+var Player = function(kbh, radius, position) {
 	var kbh      = kbh;
-	var geometry = new THREE.SphereGeometry(5, 100, 100);
+	var geometry = new THREE.SphereGeometry(radius, 50, 50);
 	var texture  = undefined;
 	var material = new THREE.MeshNormalMaterial();
 	var mesh     = new THREE.Mesh(geometry, material);
@@ -17,7 +17,7 @@ var Player = function(kbh, position) {
 		z : 0
 	};
 
-	var acceleration_module = 1;
+	var acceleration_module = 0.05;
 	var position = position;
 
 	var acceleratingDirections = [];
@@ -64,6 +64,14 @@ var Player = function(kbh, position) {
 		};
 	};
 
+	var multV = function(a, c) {
+		return {
+			x : a.x * c,
+			y : a.y * c,
+			z : a.z * c
+		};
+	};
+
 	var normalize = function(a) {
 		var norm = Math.sqrt( a.x * a.x + a.y * a.y + a.z * a.z ) || 1;
 
@@ -101,6 +109,7 @@ var Player = function(kbh, position) {
 		}
 
 		acceleration = normalize(acceleration);
+		acceleration = multV(acceleration, acceleration_module);
 	};
 
 	var move = function() {

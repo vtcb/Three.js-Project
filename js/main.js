@@ -4,7 +4,7 @@ var main = function() {
 
     var renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0x000000, 1.0);
-    renderer.setSize(winWidth, winHeight);
+    renderer.setSize(winWidth/2, winHeight/2);
 
     var kbh = new KBHandler();
 
