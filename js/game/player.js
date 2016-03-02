@@ -32,6 +32,7 @@ var Player = function(kbh, radius, position) {
 	    87 : 'up',		// W
 	    68 : 'right',	// D
 	    83 : 'down'		// S
+	    32 : 'jump'		// Space bar
 	};
 
 	var direction_vectors = {
