@@ -31,7 +31,7 @@ var Player = function(kbh, radius, position) {
 	    65 : 'left',	// A
 	    87 : 'up',		// W
 	    68 : 'right',	// D
-	    83 : 'down'		// S
+	    83 : 'down',		// S
 	    32 : 'jump'		// Space bar
 	};
 
