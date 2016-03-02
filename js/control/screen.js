@@ -6,7 +6,7 @@ var Screen = function(winWidth, winHeight) {
     camera.position.z = 50;
     camera.lookAt(scene.position);
 
-    scene.add(
+    scene.add( 
         new THREE.Mesh(
             new THREE.SphereGeometry(5, 100, 100),
             new THREE.MeshNormalMaterial()
@@ -14,7 +14,13 @@ var Screen = function(winWidth, winHeight) {
     );
 
     return {
-        render : function(renderer) {
+        getCamera : function() {
+            return camera;
+        },
+        getScene  : function() {
+            return scene;
+        },
+        render    : function(renderer) {
             renderer.render(scene, camera);
         }
     };
