@@ -6,11 +6,14 @@ var main = function() {
     renderer.setClearColor(0x000000, 1.0);
     renderer.setSize(winWidth, winHeight);
 
-    var game_screen = new Screen(winWidth, winHeight);
+    var kbh = new KBHandler();
+
+    var game_screen = new Screen(kbh, winWidth, winHeight);
 
     var animate = function() {
         requestAnimationFrame(animate);
 
+        game_screen.update();
         game_screen.render(renderer);
     };
 

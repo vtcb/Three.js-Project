@@ -1,4 +1,5 @@
-var Player = function(kbh) {
+var Player = function(kbh, position) {
+	var kbh      = kbh;
 	var geometry = new THREE.SphereGeometry(5, 100, 100);
 	var texture  = undefined;
 	var material = new THREE.MeshNormalMaterial();
@@ -32,7 +33,7 @@ var Player = function(kbh) {
 	    83 : 'down'		// S
 	};
 
-	var direction_vectors = [
+	var direction_vectors = {
 		left  : {
 			x : -1,
 			y :  0,
@@ -53,7 +54,7 @@ var Player = function(kbh) {
 			y :  0,
 			z : -1
 		}
-	];
+	};
 
 	var addV = function(a, b) {
 		return {
@@ -64,7 +65,8 @@ var Player = function(kbh) {
 	};
 
 	var normalize = function(a) {
-		var norm = Math.sqrt( a.x * a.x + a.y * a.y + a.z * a.z );
+		var norm = Math.sqrt( a.x * a.x + a.y * a.y + a.z * a.z ) || 1;
+
 		return {
 			x : a.x / norm,
 			y : a.y / norm,
@@ -76,7 +78,7 @@ var Player = function(kbh) {
 		acceleratingDirections = [];
 		for(var code in controls) {
 			if(kbh.isPressed(code)) {
-				acceleratingDirections.push(controls[i]);
+				acceleratingDirections.push(controls[code]);
 			}
 		}
 
@@ -98,7 +100,7 @@ var Player = function(kbh) {
 			acceleration = addV(acceleration, direction_vectors[direction]);
 		}
 
-		acceleration = normalize(acceleration) * acceleration_module;
+		acceleration = normalize(acceleration);
 	};
 
 	var move = function() {
@@ -106,6 +108,12 @@ var Player = function(kbh) {
 		position = addV(position, speed);
 
 		/* Check collision */
+	};
+
+	var updateMesh = function() {
+		mesh.position.x = position.x;
+		mesh.position.y = position.y;
+		mesh.position.z = position.z;
 	};
 
 	return {
@@ -127,10 +135,14 @@ var Player = function(kbh) {
 		setSpeed 	: function(speed)	{
 			this.speed = speed;
 		},
+		getPositionStr : function()	{
+			return '' + [position.x, position.y, position.z];
+		},
 
 		update 		: function() {
 			updateAcceleration();
 			move();
+			updateMesh();
 		}
 	};
 };

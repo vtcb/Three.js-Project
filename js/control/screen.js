@@ -1,4 +1,4 @@
-var Screen = function(winWidth, winHeight) {
+var Screen = function(kbh, winWidth, winHeight) {
     var camera = new THREE.PerspectiveCamera(75, winWidth/winHeight, 0.1, 1000);
     var scene  = new THREE.Scene();
  
@@ -6,15 +6,40 @@ var Screen = function(winWidth, winHeight) {
     camera.position.z = 50;
     camera.lookAt(scene.position);
  
+    var player = new Player(kbh, Global.initialPlayerPosition);
+
+    scene.add(player.getMesh());
+
+    var plane = new THREE.Mesh(
+        new THREE.PlaneGeometry(40, 40),
+        new THREE.MeshNormalMaterial()
+    );
+
+    plane.rotation.x = -0.5 * Math.PI;
+
+    scene.add(plane);
+
+/*
     scene.add(
         new THREE.Mesh(
             new THREE.SphereGeometry(5, 100, 100),
             new THREE.MeshNormalMaterial()
         )
     );
- 
+*/
     return {
-        render : function(renderer) {
+        getCamera : function() {
+            return camera;
+        },
+        getScene  : function() {
+            return scene;
+        },
+
+        update    : function() {
+            player.update();
+            //console.log(player.getPositionStr());
+        },
+        render    : function(renderer) {
             renderer.render(scene, camera);
         }
     };

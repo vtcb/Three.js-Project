@@ -1,5 +1,5 @@
-var GameScreen = function(winWidth, winHeight) {
-	var obj = Screen.call(this, winWidth, winHeight);
+var GameScreen = function(kbh, winWidth, winHeight) {
+	var obj = Screen.call(this, kbh, winWidth, winHeight);
 
 	return obj;
 };
