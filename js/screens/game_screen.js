@@ -1,9 +1,7 @@
-var GameScreen = function() {
-	Screen.call(this);
+var GameScreen = function(winWidth, winHeight) {
+	var obj = Screen.call(this, winWidth, winHeight);
 
-	var
-
-	return this;
+	return obj;
 };
 
 GameScreen.prototype = Object.create(Screen.prototype);
