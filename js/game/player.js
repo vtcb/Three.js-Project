@@ -17,7 +17,8 @@ var Player = function(kbh, radius, position) {
 		z : 0
 	};
 
-	var acceleration_module = 0.05;
+	var acceleration_module = Global.player.acceleration;
+	var deceleration_module = Global.player.deceleration;
 	var position = position;
 
 	var acceleratingDirections = [];
@@ -64,6 +65,14 @@ var Player = function(kbh, radius, position) {
 		};
 	};
 
+	var cpyV = function(a) {
+		return {
+			x : a.x,
+			y : a.y,
+			z : a.z
+		};
+	};
+
 	var multV = function(a, c) {
 		return {
 			x : a.x * c,
@@ -72,8 +81,20 @@ var Player = function(kbh, radius, position) {
 		};
 	};
 
+	var nullV = function() {
+		return {
+			x : 0,
+			y : 0,
+			z : 0
+		};
+	};
+
+	var getNorm = function(a) {
+		return Math.sqrt( a.x * a.x + a.y * a.y + a.z * a.z );
+	};
+
 	var normalize = function(a) {
-		var norm = Math.sqrt( a.x * a.x + a.y * a.y + a.z * a.z ) || 1;
+		var norm = getNorm(a) || 1;
 
 		return {
 			x : a.x / norm,
@@ -97,11 +118,7 @@ var Player = function(kbh, radius, position) {
 			}
 		);
 
-		acceleration = {
-			x : 0,
-			y : 0,
-			z : 0
-		};
+		acceleration = nullV();
 
 		for(var i in acceleratingDirections) {
 			var direction = acceleratingDirections[i];
@@ -109,12 +126,28 @@ var Player = function(kbh, radius, position) {
 		}
 
 		acceleration = normalize(acceleration);
-		acceleration = multV(acceleration, acceleration_module);
+		acceleration = multV(acceleration,  acceleration_module);
+	};
+
+	var accelerate = function() {
+		speed    = addV(speed, acceleration);
+	};
+
+	var decelerate = function() {
+		if(deceleration_module >= getNorm(speed)) {
+			speed = nullV();
+		} else {
+			var deceleration = cpyV(speed);
+			deceleration = normalize(deceleration);
+			deceleration = multV(deceleration, -deceleration_module);
+			speed = addV(speed, deceleration);
+		}
 	};
 
 	var move = function() {
-		speed    = addV(speed, acceleration);
+		accelerate();
 		position = addV(position, speed);
+		decelerate();
 
 		/* Check collision */
 	};
