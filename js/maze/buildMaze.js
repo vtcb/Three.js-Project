@@ -21,8 +21,7 @@ var BuildMaze = function(maze, tam){
 	}
 
 	return {
-		getObjs: function(){
-			return objs;
-		}
+		mazeObjs: objs,
+		tileSize: tam
 	};
 }
