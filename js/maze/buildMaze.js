@@ -11,7 +11,7 @@ var mazeBuilder = function(width, height, I_ini, J_ini, I_end, J_end, tam){
 		for(var j = 0; j < width; j++){
 			if(mat[i][j] === 1){
 				objs.push(new THREE.Mesh(new THREE.BoxGeometry(tam, tam, tam), new THREE.MeshNormalMaterial()));
-				objs[objs.length-1].position.y-=tam/2;
+				objs[objs.length-1].position.y+=tam/2;
 				objs[objs.length-1].position.x+=j*tam+tam/2;
 				objs[objs.length-1].position.z+=i*tam+tam/2;				
 			}

@@ -24,9 +24,26 @@ var mazeGenerator = function(width, height, I_ini, J_ini, I_end, J_end){
  		}
  	}
 
-
  	var dirx = [0, 0, 2, -2];
  	var diry = [2, -2, 0, 0];
+
+ 	var markAnt = function(x, y, i){
+ 		switch(i){
+ 			case 0:
+ 				mat[x][y-1] = 2;
+ 				break;
+ 			case 1:
+ 				mat[x][y+1] = 2;
+ 				break;
+ 			case 2:
+ 				mat[x-1][y] = 2;
+ 				break;
+ 			case 3:
+ 				mat[x+1][y] = 2;
+ 				break;
+ 		}
+
+ 	};
 
 	var dfs = function(atI, atJ){
 		mat[atI][atJ] = 2;
@@ -38,20 +55,17 @@ var mazeGenerator = function(width, height, I_ini, J_ini, I_end, J_end){
 			var y = atJ + diry[i];
 
 			if(x >= 0 && y >= 0 && x < height && y < width && mat[x][y] === 0){
-				if(i === 0){
-					mat[x][y-1] = 2;
-				}
-				else if(i === 1){
-					mat[x][y+1] = 2;
-				}
-				else if(i === 2){
-					mat[x-1][y] = 2;
-				}
-				else{
-					mat[x+1][y] = 2;
-				}
-				dfs(x, y);
+				v.push([x, y, i]);
 			}
+		}
+
+		while(v.length > 0){
+			var n = Math.floor(Math.random()*v.length);
+			if(mat[v[n][0]][v[n][1]] === 0){
+				dfs(v[n][0], v[n][1]);
+				markAnt(v[n][0], v[n][1], v[n][2]);
+			}
+			v.splice(n, 1);
 		}
 	};
 

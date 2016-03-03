@@ -15,7 +15,7 @@ var Screen = function(kbh, winWidth, winHeight) {
 
     scene.add(player.getMesh());
 
-    var plane = new THREE.Mesh(
+/*    var plane = new THREE.Mesh(
         new THREE.PlaneGeometry(40, 40),
         new THREE.MeshNormalMaterial()
     );
@@ -23,6 +23,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     plane.rotation.x = -0.5 * Math.PI;
 
     scene.add(plane);
+*/
 
 /*
     scene.add(
@@ -32,6 +33,7 @@ var Screen = function(kbh, winWidth, winHeight) {
         )
     );
 */
+
     return {
         getCamera : function() {
             return camera;
