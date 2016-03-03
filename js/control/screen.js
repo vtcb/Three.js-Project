@@ -33,6 +33,14 @@ var Screen = function(kbh, winWidth, winHeight) {
         )
     );
 */
+    //Teste maze
+    var map = GenerateMaze(50, 50, 0, 0, 49, 49);
+    var maze = BuildMaze(map, 2);
+    var objs = maze.getObjs();
+    for(var i = 0; i < objs.length; i++){
+        scene.add(objs[i]);
+    }
+
 
     return {
         getCamera : function() {

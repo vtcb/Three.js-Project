@@ -1,8 +1,8 @@
-var coordGenerator = function(_var){
-	return 2*_var + 1;
-}
+var GenerateMaze = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
+	var coordGenerator = function(_var){
+		return 2*_var + 1;
+	}
 
-var mazeGenerator = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
 	var mat = [];
 	var width = coordGenerator(w);
 	var height = coordGenerator(h);
@@ -77,13 +77,21 @@ var mazeGenerator = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
 
 	dfs(I_ini, J_ini);
 
+	/*
 	for(var i = 0; i < height; i++){
 		console.log(mat[i]);
 	}
+	*/
 
 	return{
 		getMat: function(){
 			return mat;
+		},
+		getWidth: function(){
+			return width;
+		},
+		getHeight: function(){
+			return height;
 		}
 	};
 }; 
