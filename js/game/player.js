@@ -5,17 +5,13 @@ var Player = function(kbh, radius, position) {
 	var material = new THREE.MeshNormalMaterial();
 	var mesh     = new THREE.Mesh(geometry, material);
 
-	var acceleration = {
-		x : 0,
-		y : 0,
-		z : 0
+	var nullV3 = function() {
+		return new THREE.Vector3(0, 0, 0);
 	};
 
-	var speed = {
-		x : 0,
-		y : 0,
-		z : 0
-	};
+	var acceleration = nullV3();
+
+	var speed = nullV3();
 
 	var acceleration_module = Global.player.acceleration;
 	var deceleration_module = Global.player.deceleration;
@@ -36,72 +32,10 @@ var Player = function(kbh, radius, position) {
 	};
 
 	var direction_vectors = {
-		left  : {
-			x : -1,
-			y :  0,
-			z :  0
-		},
-		up    : {
-			x :  0,
-			y :  0,
-			z :  1
-		},
-		right : {
-			x :  1,
-			y :  0,
-			z :  0
-		},
-		down  : {
-			x :  0,
-			y :  0,
-			z : -1
-		}
-	};
-
-	var addV = function(a, b) {
-		return {
-			x : a.x + b.x,
-			y : a.y + b.y,
-			z : a.z + b.z
-		};
-	};
-
-	var cpyV = function(a) {
-		return {
-			x : a.x,
-			y : a.y,
-			z : a.z
-		};
-	};
-
-	var multV = function(a, c) {
-		return {
-			x : a.x * c,
-			y : a.y * c,
-			z : a.z * c
-		};
-	};
-
-	var nullV = function() {
-		return {
-			x : 0,
-			y : 0,
-			z : 0
-		};
-	};
-
-	var getNorm = function(a) {
-		return Math.sqrt( a.x * a.x + a.y * a.y + a.z * a.z );
-	};
-
-	var normalize = function(a) {
-		var norm = getNorm(a) || 1;
-
-		return {
-			x : a.x / norm,
-			y : a.y / norm,
-			z : a.z / norm
-		};
+		left  : new THREE.Vector3(-1,  0,  0),
+		up    : new THREE.Vector3( 0,  0, -1),
+		right : new THREE.Vector3( 1,  0,  0),
+		down  : new THREE.Vector3( 0,  0,  1)
 	};
 
 	var updateAcceleration = function() {
@@ -119,35 +53,35 @@ var Player = function(kbh, radius, position) {
 			}
 		);
 
-		acceleration = nullV();
+		acceleration = nullV3();
 
 		for(var i in acceleratingDirections) {
 			var direction = acceleratingDirections[i];
-			acceleration = addV(acceleration, direction_vectors[direction]);
+			acceleration.add(direction_vectors[direction]);
 		}
 
-		acceleration = normalize(acceleration);
-		acceleration = multV(acceleration,  acceleration_module);
+		acceleration.normalize();
+		acceleration.multiplyScalar(acceleration_module);
 	};
 
 	var accelerate = function() {
-		speed    = addV(speed, acceleration);
+		speed.add(acceleration);
 	};
 
 	var decelerate = function() {
-		if(deceleration_module >= getNorm(speed)) {
-			speed = nullV();
+		if(deceleration_module >= speed.length()) {
+			speed = nullV3();
 		} else {
-			var deceleration = cpyV(speed);
-			deceleration = normalize(deceleration);
-			deceleration = multV(deceleration, -deceleration_module);
-			speed = addV(speed, deceleration);
+			var deceleration = speed.clone();
+			deceleration.normalize();
+			deceleration.multiplyScalar(-deceleration_module);
+			speed.add(deceleration);
 		}
 	};
 
 	var move = function() {
 		accelerate();
-		position = addV(position, speed);
+		position.add(speed);
 		decelerate();
 
 		/* Check collision */

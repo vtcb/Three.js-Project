@@ -38,7 +38,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     var maze = BuildMaze(map, 2);
     var objs = maze.getObjs();
     for(var i = 0; i < objs.length; i++){
-        scene.add(objs[i]);
+    //    scene.add(objs[i]);
     }
 
 
