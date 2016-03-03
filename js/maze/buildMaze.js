@@ -1,5 +1,5 @@
-var mazeBuilder = function(width, height, I_ini, J_ini, I_end, J_end, tam){
-	mat = mazeGenerator(width, height, I_ini, J_ini, I_end, J_end);
+var mazeBuilder = function(maze){
+	var mat = maze.getMap();
 
 	var objs = [];
 	objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(width*tam, height*tam), new THREE.MeshNormalMaterial());

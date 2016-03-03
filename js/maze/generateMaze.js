@@ -2,8 +2,14 @@ var coordGenerator = function(_var){
 	return 2*_var + 1;
 }
 
-var mazeGenerator = function(width, height, I_ini, J_ini, I_end, J_end){
+var mazeGenerator = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
 	var mat = [];
+	var width = coordGenerator(w);
+	var height = coordGenerator(h);
+	var I_ini = coordGenerator(I_ini1);
+	var J_ini = coordGenerator(J_ini1);
+	var I_end = coordGenerator(I_end1);
+	var J_end = coordGenerator(J_end1);
 
 	for(var i = 0; i < height; i++){
 		mat[i] = [];
@@ -75,5 +81,9 @@ var mazeGenerator = function(width, height, I_ini, J_ini, I_end, J_end){
 		console.log(mat[i]);
 	}
 
-	return mat;
+	return{
+		getMat: function(){
+			return mat;
+		}
+	};
 }; 
