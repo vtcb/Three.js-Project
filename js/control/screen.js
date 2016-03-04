@@ -24,14 +24,14 @@ var Screen = function(kbh, winWidth, winHeight) {
     scene.add(plane);
 */
 
-/*
-    scene.add(
-        new THREE.Mesh(
-            new THREE.SphereGeometry(5, 100, 100),
-            new THREE.MeshNormalMaterial()
-        )
-    );
-*/
+    /*var lala = new THREE.Mesh(
+            new THREE.CylinderGeometry(1, 1, 3),
+            new THREE.MeshBasicMaterial({color: 0xff0000})
+        );
+    lala.position.y+=1.5;
+    scene.add(lala);
+    */
+
     //Teste maze
     var map = GenerateMaze(50, 25, 0, 0, 49, 24);
     var maze = BuildMaze(map, 2);

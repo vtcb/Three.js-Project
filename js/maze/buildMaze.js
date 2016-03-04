@@ -17,8 +17,8 @@ var BuildMaze = function(maze, tam){
 			if(mat[i][j] === 1){
 				objs.push(new THREE.Mesh(wall, material));
 				objs[objs.length-1].position.y+=tam/2;
-				objs[objs.length-1].position.x+=j*tam+tam/2-(tamW)/2;;
-				objs[objs.length-1].position.z+=i*tam+tam/2-(tamH)/2;;				
+				objs[objs.length-1].position.x+=j*tam+tam/2-(tamW)/2;
+				objs[objs.length-1].position.z+=i*tam+tam/2-(tamH)/2;				
 			}
 		}
 	}
