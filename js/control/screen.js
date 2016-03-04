@@ -8,7 +8,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     camera.lookAt(scene.position);
 
 
-    var map = GenerateMaze(25, 15, 0, 0, 24, 14);
+    var map = GenerateMaze(5, 5, 0, 0, 24, 14);
     var maze = BuildMaze(map, 2);
  
     var player = new Player(
@@ -44,7 +44,7 @@ var Screen = function(kbh, winWidth, winHeight) {
 
     //var floor = new Floor(kbh, maze.map);
 
-    //scene.add(player.getMesh());
+    scene.add(player.getMesh());
     //scene.add(floor.getMesh());
 
     return {

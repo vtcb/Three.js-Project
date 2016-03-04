@@ -9,6 +9,7 @@ var collision = function(obj, collidableMeshList) {
     var collisionResults = ray.intersectObjects(collidableMeshList);
  
     if (collisionResults.length > 0 && collisionResults[0].distance <= directionVector.length()) {
+      return true;
       var dir = globalVertex.clone().sub(collisionResults[0].point);
       return dir;
     }
