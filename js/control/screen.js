@@ -36,7 +36,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     var map = GenerateMaze(50, 25, 0, 0, 49, 24);
     var maze = BuildMaze(map, 2);
 
-    var floor = new Floor(kbh);
+    var floor = new Floor(kbh, maze.map);
 
     scene.add(player.getMesh());
     scene.add(floor.getMesh());

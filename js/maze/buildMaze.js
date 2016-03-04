@@ -32,9 +32,9 @@ var BuildMaze = function(maze, tam){
 	var mesh = new THREE.Mesh(join, material);
 
 	return {
-		map: mesh,
-		tileSize: tam, 
-		width: tamW,
-		height: tamH
+		map		 : mesh,
+		tileSize : tam, 
+		width 	 : tamW,
+		height 	 : tamH
 	};
 }

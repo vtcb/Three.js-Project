@@ -1,16 +1,16 @@
-var Floor = function(kbh)	{
+var Floor = function(kbh, mesh)	{
     var kbh       = kbh;
 
 	var angle 	  = Math.PI/6;
 	var direction = Global.nullV3();
-	var geometry  = new THREE.PlaneGeometry(Global.floor.length, Global.floor.width);
-	var texture   = undefined;
-    var color     = new THREE.Color('rgb(0,100,0)');
-    var material  = new THREE.MeshBasicMaterial ({
-                        color : color.getHex(),
-                        side  : THREE.DoubleSide
-                    });
-	var mesh      = new THREE.Mesh(geometry, material);
+	// var geometry  = new THREE.PlaneGeometry(Global.floor.length, Global.floor.width);
+	// var texture   = undefined;
+ //    var color     = new THREE.Color('rgb(0,100,0)');
+ //    var material  = new THREE.MeshBasicMaterial ({
+ //                       color : color.getHex(),
+ //                       side  : THREE.DoubleSide
+ //                    });
+	// var mesh      = new THREE.Mesh(geometry, material);
 	var position  = Global.floor.initialPosition;
 
     var controls = {
@@ -23,14 +23,14 @@ var Floor = function(kbh)	{
 
     var direction_vectors = {
         left  : new THREE.Vector3( 0,  0,  1),
-        up    : new THREE.Vector3( 1,  0,  0),
+        up    : new THREE.Vector3(-1,  0,  0),
         right : new THREE.Vector3( 0,  0, -1),
-        down  : new THREE.Vector3(-1,  0,  0)
+        down  : new THREE.Vector3( 1,  0,  0)
     };
 
     var lean = function()   {
-        mesh.rotation.x = -0.5 * Math.PI + angle * direction.x;
-        mesh.rotation.y = angle * direction.z;
+        mesh.rotation.x = /*-0.5 * Math.PI +*/ angle * direction.x;
+        mesh.rotation.z = angle * direction.z;
         //console.log("rotation = [" + mesh.rotation.x + ", " + mesh.rotation.y + ", " + mesh.rotation.z + "]");
     };
 
