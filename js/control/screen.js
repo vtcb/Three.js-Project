@@ -13,7 +13,10 @@ var Screen = function(kbh, winWidth, winHeight) {
         Global.player.initialPosition
     );
 
+    var floor = new Floor(kbh);
+
     scene.add(player.getMesh());
+    scene.add(floor.getMesh());
 
 /*    var plane = new THREE.Mesh(
         new THREE.PlaneGeometry(40, 40),
@@ -38,7 +41,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     var maze = BuildMaze(map, 2);
     var objs = maze.getObjs();
     for(var i = 0; i < objs.length; i++){
-    //    scene.add(objs[i]);
+    // scene.add(objs[i]);
     }
 
 
@@ -53,6 +56,7 @@ var Screen = function(kbh, winWidth, winHeight) {
         update    : function() {
             orbit_controls.update();
             player.update();
+            floor.update();
             //console.log(player.getPositionStr());
         },
         render    : function(renderer) {
