@@ -34,7 +34,7 @@ var GenerateMaze = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
  	var diry = [2, -2, 0, 0];
 
  	var markAnt = function(x, y, i){
- 		switch(i){
+ 		switch(i) {
  			case 0:
  				mat[x][y-1] = 2;
  				break;
