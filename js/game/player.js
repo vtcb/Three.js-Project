@@ -1,5 +1,5 @@
-var Player = function(kbh, radius, position) {
-	var obj      = Creature.call(this);
+var Player = function(kbh, radius, position, maze) {
+	var obj      = Creature.call(this, maze);
 
 	var kbh      = kbh;
 	var geometry = new THREE.SphereGeometry(radius, 50, 50);

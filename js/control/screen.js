@@ -6,11 +6,16 @@ var Screen = function(kbh, winWidth, winHeight) {
     camera.position.y = 20;
     camera.position.z = 20;
     camera.lookAt(scene.position);
+
+
+    var map = GenerateMaze(25, 15, 0, 0, 24, 14);
+    var maze = BuildMaze(map, 2);
  
     var player = new Player(
         kbh,
         Global.player.radius,
-        Global.player.initialPosition
+        Global.player.initialPosition, 
+        maze
     );
 
 
@@ -33,13 +38,14 @@ var Screen = function(kbh, winWidth, winHeight) {
     */
 
     //Teste maze
-    var map = GenerateMaze(50, 25, 0, 0, 49, 24);
-    var maze = BuildMaze(map, 2);
 
-    var floor = new Floor(kbh, maze.map);
+    scene.add(maze.floor);
+    scene.add(maze.walls);
 
-    scene.add(player.getMesh());
-    scene.add(floor.getMesh());
+    //var floor = new Floor(kbh, maze.map);
+
+    //scene.add(player.getMesh());
+    //scene.add(floor.getMesh());
 
     return {
         getCamera : function() {
@@ -52,7 +58,7 @@ var Screen = function(kbh, winWidth, winHeight) {
         update    : function() {
             orbit_controls.update();
             player.update();
-            floor.update();
+            //floor.update();
             //console.log(player.getPositionStr());
         },
         render    : function(renderer) {

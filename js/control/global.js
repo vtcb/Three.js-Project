@@ -5,10 +5,6 @@ var Global = {
     	acceleration    : 0.5,
     	deceleration    : 0.1
     },
-    enemy : {
-        acceleration    : 0,
-        deceleration    : 0
-    },
     nullV3 : function() {
         return new THREE.Vector3(0, 0, 0);
     }

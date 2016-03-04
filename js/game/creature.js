@@ -1,8 +1,10 @@
-var Creature = function() {
-    var acceleration = Global.nullV3();
-    var speed        = Global.nullV3();
-    var position     = Global.nullV3();
-    var mesh         = undefined;
+var Creature = function(maze) {
+    var acceleration       = Global.nullV3();
+    var speed              = Global.nullV3();
+    var position           = Global.nullV3();
+    var mesh               = undefined;
+    var maze               = maze;
+    var collidableMeshList = [maze.walls, maze.floor];
 
     var acceleration_module = Global.player.acceleration;
     var deceleration_module = Global.player.deceleration;
@@ -32,12 +34,19 @@ var Creature = function() {
         }
     };
 
+    var treatCollision = function() {
+
+    }
+
     var move = function() {
         accelerate();
         position.add(speed);
         decelerate();
 
-        /* Check collision */
+        var ret = collision(mesh, collidableMeshList);
+        if(ret){
+            treatCollision(ret);
+        }
     };
 
     var updateMesh = function() {
@@ -94,6 +103,12 @@ var Creature = function() {
         },
         getPositionStr : function() {
             return '' + [position.x, position.y, position.z];
+        },
+        setTreatCollision: function(){
+            treatCollision = arguments[0];
+        },
+        getMaze: function(){
+            return maze;
         },
 
         update      : function() {
