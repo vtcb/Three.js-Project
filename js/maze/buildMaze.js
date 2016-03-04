@@ -10,14 +10,21 @@ var BuildMaze = function(maze, tam){
 	var materialWalls = new THREE.MeshNormalMaterial();
 
 	var objs = [];
-	objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(tamW, tamH), new THREE.MeshNormalMaterial());
+	
+	//var texture = new THREE.ImageUtils.loadTexture("assets/textures/floor.jpg");
+	var texture = THREE.ImageUtils.loadTexture("assets/textures/floor.jpg");
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+	texture.repeat.set(10, 5);
+
+	objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(tamW, tamH), new THREE.MeshBasicMaterial({map : texture, side : THREE.DoubleSide}));
 	//objs[0].rotation.x = -Math.PI/2;
 
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){
 			if(mat[i][j] === 1){
 				objs.push(new THREE.Mesh(wall, materialWalls));
-				objs[objs.length-1].position.y+=tam/2;
+				objs[objs.length-1].position.y+=tam/2+0.005;
 				objs[objs.length-1].position.x+=j*tam+tam/2-(tamW)/2;
 				objs[objs.length-1].position.z+=i*tam+tam/2-(tamH)/2;				
 				mat[i][j] = -1

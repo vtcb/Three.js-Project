@@ -6,8 +6,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     camera.position.y = 20;
     camera.position.z = 20;
     camera.lookAt(scene.position);
-
-
+ 
     var map = GenerateMaze(25, 15, 0, 0, 24, 14);
     var maze = BuildMaze(map, 2);
  
@@ -17,7 +16,6 @@ var Screen = function(kbh, winWidth, winHeight) {
         Global.player.initialPosition, 
         maze
     );
-
 
 /*    var plane = new THREE.Mesh(
         new THREE.PlaneGeometry(40, 40),
@@ -60,6 +58,7 @@ var Screen = function(kbh, winWidth, winHeight) {
             orbit_controls.update();
             floor.update();
             player.update(floor.getLeanAcc());
+            //camera.lookAt(player.getPosition());
             //console.log(player.getPositionStr());
         },
         render    : function(renderer) {
