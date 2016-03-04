@@ -2,9 +2,10 @@ var Player = function(kbh, radius, position, maze) {
 	var obj      = Creature.call(this, maze);
 
 	var kbh      = kbh;
+	//var geometry = new THREE.SphereGeometry(radius, 50, 50);
 	var geometry = new THREE.SphereGeometry(radius, 50, 50);
 	var texture  = undefined;
-	var material = new THREE.MeshNormalMaterial();
+	var material = new THREE.MeshBasicMaterial({color: 0x00aa00, wireframe:true});
 	var mesh     = new THREE.Mesh(geometry, material);
 
 	var position = position;
