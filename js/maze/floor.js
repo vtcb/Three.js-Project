@@ -1,17 +1,8 @@
-var Floor = function(kbh, mesh)	{
+var Floor = function(kbh, mapFloor, mapWalls) {
     var kbh       = kbh;
 
-	var angle 	  = Math.PI/6;
-	var direction = Global.nullV3();
-	// var geometry  = new THREE.PlaneGeometry(Global.floor.length, Global.floor.width);
-	// var texture   = undefined;
- //    var color     = new THREE.Color('rgb(0,100,0)');
- //    var material  = new THREE.MeshBasicMaterial ({
- //                       color : color.getHex(),
- //                       side  : THREE.DoubleSide
- //                    });
-	// var mesh      = new THREE.Mesh(geometry, material);
-	var position  = Global.floor.initialPosition;
+    var angle     = Math.PI/100;
+    var direction = Global.nullV3();
 
     var controls = {
         72 : 'left',    // H
@@ -22,22 +13,18 @@ var Floor = function(kbh, mesh)	{
     };
 
     var direction_vectors = {
-        left  : new THREE.Vector3( 0,  0,  1),
-        up    : new THREE.Vector3(-1,  0,  0),
-        right : new THREE.Vector3( 0,  0, -1),
-        down  : new THREE.Vector3( 1,  0,  0)
+        left  : new THREE.Vector3( 1,  0,  0),
+        up    : new THREE.Vector3( 0,  0,  1),
+        right : new THREE.Vector3(-1,  0,  0),
+        down  : new THREE.Vector3( 0,  0, -1)
     };
 
     var lean = function()   {
-        mesh.rotation.x = /*-0.5 * Math.PI +*/ angle * direction.x;
-        mesh.rotation.z = angle * direction.z;
-        //console.log("rotation = [" + mesh.rotation.x + ", " + mesh.rotation.y + ", " + mesh.rotation.z + "]");
-    };
-
-	var updateMesh = function() {
-        mesh.position.x = position.x;
-        mesh.position.y = position.y;
-        mesh.position.z = position.z;
+        mapFloor.rotation.x = -Math.PI/2 - angle * direction.z;
+        mapFloor.rotation.y = -angle * direction.x;
+        mapWalls.rotation.x = -angle * direction.z;
+        mapWalls.rotation.z =  angle * direction.x;
+        //console.log("rotation = [" + mapFloor.rotation.x + ", " + mapFloor.rotation.y + ", " + mapFloor.rotation.z + "]");
     };
 
     var leanRequest = function() {
@@ -71,12 +58,18 @@ var Floor = function(kbh, mesh)	{
         lean();
     };
 
-	return {
-        getMesh     : function()    {
-            return mesh;
+    return {
+        getMapFloor : function()    {
+            return mapFloor;
         },
-        setMesh     : function()    {
-            mesh = arguments[0];
+        setMapFloor : function()    {
+            mapFloor = arguments[0];
+        },
+        getMapWalls : function()    {
+            return mapWalls;
+        },
+        setMapWalls : function()    {
+            mapWalls = arguments[0];
         },
         getPosition : function()    {
             return position;
@@ -84,10 +77,15 @@ var Floor = function(kbh, mesh)	{
         setPosition : function(pos) {
             position = pos;
         },
-
-        update      : function() {
+        getLeanAcc  : function()    {
+            var acc = direction.clone();
+            acc.normalize();
+            acc.multiplyScalar(-Global.player.mass*Global.player.gravity*Math.sin(angle));
+            // acc.add(new THREE.Vector3(0, -Global.player.gravity, 0));
+            return acc;
+        },
+        update      : function()    {
             leanRequest();
-            updateMesh();
         }
-	}
+    }
 }
