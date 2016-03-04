@@ -20,15 +20,10 @@ var createEnemies = function(qtd, maze, speed, maze){
 		
 	}
 
-	var updateAcceleration = function(map, maze){
+	var updateAcceleration = function(){
 		var pos = obj.getPos();
+		var maze = obj.getMaze();
 
-		if(prob < 25){
-			obj.setSpeed(direction.multiplyScalar(obj.speedMod));
-		}
-		else{
-
-		}
 	}
 
 	var treatCollision = function(dir){

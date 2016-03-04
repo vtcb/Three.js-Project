@@ -4,7 +4,7 @@ var Creature = function(maze) {
     var position           = Global.nullV3();
     var mesh               = undefined;
     var maze               = maze;
-    var collidableMeshList = [maze.walls, maze.floor];
+    var collidableMeshList = [maze.floor];
 
     var acceleration_module = Global.player.acceleration;
     var deceleration_module = Global.player.deceleration;
