@@ -13,10 +13,6 @@ var Screen = function(kbh, winWidth, winHeight) {
         Global.player.initialPosition
     );
 
-    var floor = new Floor(kbh);
-
-    scene.add(player.getMesh());
-    scene.add(floor.getMesh());
 
 /*    var plane = new THREE.Mesh(
         new THREE.PlaneGeometry(40, 40),
@@ -37,13 +33,13 @@ var Screen = function(kbh, winWidth, winHeight) {
     );
 */
     //Teste maze
-    var map = GenerateMaze(50, 50, 0, 0, 49, 49);
+    var map = GenerateMaze(50, 25, 0, 0, 49, 24);
     var maze = BuildMaze(map, 2);
-    var objs = maze.getObjs();
-    for(var i = 0; i < objs.length; i++){
-    // scene.add(objs[i]);
-    }
 
+    var floor = new Floor(kbh);
+
+    scene.add(player.getMesh());
+    scene.add(floor.getMesh());
 
     return {
         getCamera : function() {
