@@ -30,8 +30,9 @@ var Player = function(kbh, radius, position, maze) {
 		down  : new THREE.Vector3( 0,  0,  1)
 	};
 
-	var updateAcceleration = function() {
+	var updateAcceleration = function(leanAcc) {
 		acceleratingDirections = [];
+
 		for(var code in controls) {
 			if(kbh.isPressed(code)) {
 				acceleratingDirections.push(controls[code]);
@@ -54,6 +55,7 @@ var Player = function(kbh, radius, position, maze) {
 
 		acceleration.normalize();
 		acceleration.multiplyScalar(obj.getAccMod());
+		acceleration.add(leanAcc);
 
 		obj.setAcc(acceleration);
 	};

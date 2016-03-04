@@ -11,7 +11,7 @@ var BuildMaze = function(maze, tam){
 
 	var objs = [];
 	objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(tamW, tamH), new THREE.MeshNormalMaterial());
-	objs[0].rotation.x-=Math.PI/2;
+	//objs[0].rotation.x = -Math.PI/2;
 
 	for(var i = 0; i < height; i++){
 		for(var j = 0; j < width; j++){

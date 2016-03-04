@@ -39,13 +39,14 @@ var Screen = function(kbh, winWidth, winHeight) {
 
     //Teste maze
 
-    scene.add(maze.floor);
-    scene.add(maze.walls);
+    //scene.add(maze.floor);
+    //scene.add(maze.walls);
 
-    //var floor = new Floor(kbh, maze.map);
+    var floor = new Floor(kbh, maze.floor, maze.walls);
 
-    //scene.add(player.getMesh());
-    //scene.add(floor.getMesh());
+    scene.add(player.getMesh());
+    scene.add(floor.getMapFloor());
+    scene.add(floor.getMapWalls());
 
     return {
         getCamera : function() {
@@ -57,8 +58,8 @@ var Screen = function(kbh, winWidth, winHeight) {
 
         update    : function() {
             orbit_controls.update();
-            player.update();
-            //floor.update();
+            floor.update();
+            player.update(floor.getLeanAcc());
             //console.log(player.getPositionStr());
         },
         render    : function(renderer) {

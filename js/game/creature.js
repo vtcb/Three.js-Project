@@ -16,7 +16,7 @@ var Creature = function(maze) {
         down  : new THREE.Vector3( 0,  0,  1)
     };
 
-    var updateAcceleration = function() {
+    var updateAcceleration = function(leanAcc) {
     };
 
     var accelerate = function() {
@@ -36,7 +36,7 @@ var Creature = function(maze) {
 
     var treatCollision = function() {
 
-    }
+    };
 
     var move = function() {
         accelerate();
@@ -111,8 +111,8 @@ var Creature = function(maze) {
             return maze;
         },
 
-        update      : function() {
-            updateAcceleration();
+        update      : function(leanAcc) {
+            updateAcceleration(leanAcc);
             move();
             updateMesh();
         }
