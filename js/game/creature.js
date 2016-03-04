@@ -43,9 +43,25 @@ var Creature = function(maze) {
         position.add(speed);
         decelerate();
 
-        var ret = collision(mesh, collidableMeshList);
-        if(ret){
-            treatCollision(ret);
+        var dx = [0, 1, 0, -1];
+        var dy = [1, 0, -1, 0];
+
+        var collidableMeshList = [maze.floor];
+
+        for(var i in dx) {
+            for(var j in dy) {
+                var idx = maze.matrix[i][j];
+                if(idx === -1) continue;
+
+                collidableMeshList.push(maze.objs[idx]);
+            }
+        }
+
+        for(var i in collidableMeshList) {
+            var col = collision(mesh, [collidableMeshList[i]]);
+            if(col){
+                treatCollision(col);
+            }
         }
     };
 
