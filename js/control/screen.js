@@ -6,14 +6,9 @@ var Screen = function(kbh, winWidth, winHeight) {
     camera.position.y = 20;
     camera.position.z = 20;
     camera.lookAt(scene.position);
-<<<<<<< HEAD
-
 
     var map = GenerateMaze(5, 5, 0, 0, 24, 14);
-=======
- 
-    var map = GenerateMaze(25, 15, 0, 0, 24, 14);
->>>>>>> 8b56c3d0dfb01a56e20be04ba16e81638d8923dc
+
     var maze = BuildMaze(map, 2);
  
     var player = new Player(
@@ -49,12 +44,9 @@ var Screen = function(kbh, winWidth, winHeight) {
     var floor = new Floor(kbh, maze.floor, maze.walls);
 
     scene.add(player.getMesh());
-<<<<<<< HEAD
-    //scene.add(floor.getMesh());
-=======
+
     scene.add(floor.getMapFloor());
     scene.add(floor.getMapWalls());
->>>>>>> 8b56c3d0dfb01a56e20be04ba16e81638d8923dc
 
     return {
         getCamera : function() {
