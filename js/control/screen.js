@@ -7,6 +7,13 @@ var Screen = function(kbh, winWidth, winHeight) {
     camera.position.z = 20;
     camera.lookAt(scene.position);
 
+    /* Light */
+    var spotLight = new THREE.SpotLight(0xFFFFFF);
+    spotLight.position.set(0, 100, 0);
+
+    spotLight.castShadow = true;
+
+    /* Meshes */
     var enemiesQtd = 1;
     var map = GenerateMaze(5, 5, 0, 0, 24, 14);
     var maze = BuildMaze(map, 2);
@@ -20,30 +27,17 @@ var Screen = function(kbh, winWidth, winHeight) {
 
     var enemies = EnemiesGenerator(maze, 0.1, enemiesQtd, 3);
 
-/*    var plane = new THREE.Mesh(
-        new THREE.PlaneGeometry(40, 40),
-        new THREE.MeshNormalMaterial()
-    );
-
-    plane.rotation.x = -0.5 * Math.PI;
-
-    scene.add(plane);
-*/
-
-    /*var lala = new THREE.Mesh(
-            new THREE.CylinderGeometry(1, 1, 3),
-            new THREE.MeshBasicMaterial({color: 0xff0000})
-        );
-    lala.position.y+=1.5;
-    scene.add(lala);
-    */
-
-    //Teste maze
-
-    //scene.add(maze.floor);
-    //scene.add(maze.walls);
-
     var floor = new Floor(kbh, maze.floor, maze.walls);
+
+    /* Set shadows */
+    player.getMesh().castShadow = true;
+
+    floor.getMapFloor().receiveShadow = true;
+    floor.getMapWalls().castShadow = true;
+    floor.getMapWalls().receiveShadow = true;
+
+    /* Add objects to scene */
+    scene.add(spotLight);
 
     scene.add(player.getMesh());
     scene.add(player.getMesh2());

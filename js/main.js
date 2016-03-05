@@ -2,7 +2,9 @@ var main = function() {
     var winWidth  = window.innerWidth;
     var winHeight = window.innerHeight;
 
-    var renderer = new THREE.WebGLRenderer();
+    var renderer = new THREE.WebGLRenderer( {antialias: true} );
+    renderer.shadowMapEnabled = true;
+    renderer.shadowMapType = THREE.PCFShadowMap;
     renderer.setClearColor(0x000000, 1.0);
     renderer.setSize(winWidth/2, winHeight/2);
 
