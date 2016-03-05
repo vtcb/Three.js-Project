@@ -4,6 +4,9 @@ var Enemy = function(maze, speed, height){
 	var texture  = undefined;
 	var material = new THREE.MeshBasicMaterial({color: 0xff0000});
 	
+	var geometry2 = new THREE.BoxGeometry(2, 2, 2);
+	var material2 = new THREE.MeshBasicMaterial({color : '#FFFF00', wireframe : true});
+	
 	var enemy = Creature.call(this, maze);
 	enemy.speedMod = speed;
 
@@ -57,7 +60,7 @@ var Enemy = function(maze, speed, height){
 		enemy.setSpeed((chooseDirection(1)).multiplyScalar(enemy.speedMod));
 	}
 
-	enemy.setMesh(new THREE.Mesh(geometry, material));
+	enemy.setMesh(new THREE.Mesh(geometry, material), new THREE.Mesh(geometry2, material2));
 	enemy.setUpdateAcceleration(updateAcceleration);
 	enemy.setAccMod(0);
 	enemy.setDecMod(0);

@@ -1,7 +1,7 @@
 var Floor = function(kbh, mapFloor, mapWalls) {
     var kbh       = kbh;
 
-    var angle     = Math.PI/100;
+    var angle     = Global.floor.angle;
     var direction = Global.nullV3();
 
     var controls = {
@@ -81,7 +81,7 @@ var Floor = function(kbh, mapFloor, mapWalls) {
             var acc = direction.clone();
             acc.normalize();
             acc.multiplyScalar(-Global.player.mass*Global.player.gravity*Math.sin(angle));
-            // acc.add(new THREE.Vector3(0, -Global.player.gravity, 0));
+            //acc.add(new THREE.Vector3(0, -Global.player.gravity, 0));
             return acc;
         },
         update      : function()    {

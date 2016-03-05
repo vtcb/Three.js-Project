@@ -46,6 +46,7 @@ var Screen = function(kbh, winWidth, winHeight) {
     var floor = new Floor(kbh, maze.floor, maze.walls);
 
     scene.add(player.getMesh());
+    scene.add(player.getMesh2());
 
     scene.add(floor.getMapFloor());
     scene.add(floor.getMapWalls());

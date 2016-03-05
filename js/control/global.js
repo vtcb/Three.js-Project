@@ -8,6 +8,7 @@ var Global = {
         gravity         : 1
     },
     floor : {
+        angle           : Math.PI/100,
         atrito          : 0.5
     },
     nullV3 : function() {

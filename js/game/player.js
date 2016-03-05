@@ -1,12 +1,17 @@
 var Player = function(kbh, radius, position, maze) {
-	var obj      = Creature.call(this, maze);
+	var obj       = Creature.call(this, maze);
 
-	var kbh      = kbh;
-	//var geometry = new THREE.SphereGeometry(radius, 50, 50);
-	var geometry = new THREE.SphereGeometry(radius, 50, 50);
-	var texture  = undefined;
-	var material = new THREE.MeshBasicMaterial({color: 0x00aa00, wireframe:true});
-	var mesh     = new THREE.Mesh(geometry, material);
+	var kbh       = kbh;
+	var geometry  = new THREE.SphereGeometry(radius, 50, 50);
+	var geometry2 = new THREE.BoxGeometry(2, 2, 2);
+	
+	var texture   = undefined;
+	
+	var material  = new THREE.MeshNormalMaterial();
+	var material2 = new THREE.MeshBasicMaterial({color : '#FFFF00', wireframe : true});
+	
+	var mesh      = new THREE.Mesh(geometry, material);
+	var mesh2     = new THREE.Mesh(geometry2, material2);
 
 	var position = position;
 
@@ -48,6 +53,7 @@ var Player = function(kbh, radius, position, maze) {
 		);
 
 		var acceleration = Global.nullV3();
+		var rotation 	 = Global.nullV3();
 
 		for(var i in acceleratingDirections) {
 			var direction = acceleratingDirections[i];
@@ -58,6 +64,23 @@ var Player = function(kbh, radius, position, maze) {
 		acceleration.multiplyScalar(obj.getAccMod());
 		acceleration.add(leanAcc);
 
+		if (leanAcc.x !== 0)	{
+			console.log("x =/= 0");
+			rotation.z = -Global.floor.angle*leanAcc.x/Math.abs(leanAcc.x);
+		}
+		else	{
+			rotation.z = 0;
+		}
+
+		if (leanAcc.z !== 0)	{
+			console.log("z =/= 0");
+			rotation.x = Global.floor.angle*leanAcc.z/Math.abs(leanAcc.z);
+		}
+		else	{
+			rotation.x = 0;
+		}
+		
+		obj.setRotation(rotation);
 		obj.setAcc(acceleration);
 	};
 
@@ -65,7 +88,7 @@ var Player = function(kbh, radius, position, maze) {
 	obj.setAccMod(Global.player.acceleration);
 	obj.setDecMod(Global.player.deceleration);
 	obj.setPos(position);
-	obj.setMesh(mesh);
+	obj.setMesh(mesh, mesh2);
 
 	return obj;
 };

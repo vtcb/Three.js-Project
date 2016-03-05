@@ -2,7 +2,9 @@ var Creature = function(maze) {
     var acceleration       = Global.nullV3();
     var speed              = Global.nullV3();
     var position           = Global.nullV3();
+    var rotation           = Global.nullV3();
     var mesh               = undefined;
+    var mesh2              = undefined;
     var maze               = maze;
     var collidableMeshList = [maze.floor];
 
@@ -118,7 +120,7 @@ var Creature = function(maze) {
         }
                 
 
-        return;
+//        return;
 
         for(var i in collidableMeshList) {
 
@@ -139,6 +141,13 @@ var Creature = function(maze) {
         mesh.position.x = position.x;
         mesh.position.y = position.y;
         mesh.position.z = position.z;
+        mesh2.position.x = position.x;
+        mesh2.position.y = position.y;
+        mesh2.position.z = position.z;
+
+        mesh2.rotation.x = rotation.x;
+        mesh2.rotation.y = rotation.y;
+        mesh2.rotation.z = rotation.z;
     };
 
     return {
@@ -172,8 +181,18 @@ var Creature = function(maze) {
         getMesh     : function()    {
             return mesh;
         },
+        getMesh2    : function()    {
+            return mesh2;
+        },
         setMesh     : function()    {
             mesh = arguments[0];
+            mesh2 = arguments[1];
+        },
+        getRotation : function()    {
+            return rotation;
+        },
+        setRotation : function(rot) {
+            rotation = rot;
         },
         getPosition : function()    {
             return position;
