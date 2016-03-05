@@ -45,96 +45,57 @@ var Creature = function(maze) {
         position.add(speed);
         decelerate();
 
-        var collidableMeshList = [];//[maze.floor];
+        var di = [0, -1, 0, 1, -1, -1, 1, 1];
+        var dj = [-1, 0, 1, 0, -1, 1, -1, 1];
 
-        var gridPositions = [];
+        for(var k in di) {
+            var i = di[k];
+            var j = dj[k];
 
-        for(var i = -1; i <= 1; i++) {
-            for(var j = -1; j <= 1; j++) {
-            }
-        }
+            var xb = Math.floor( (position.z + 0.5 * maze.width )/maze.tileSize );
+            var yb = Math.floor( (position.x + 0.5 * maze.height)/maze.tileSize );
 
+            var x = Math.floor( (position.z + 0.5 * maze.width  - i * 0.9)/maze.tileSize );
+            var y = Math.floor( (position.x + 0.5 * maze.height - j * 0.9)/maze.tileSize );
 
-        if(!this.caralho) {
-            this.caralho = true;
-            console.log(x);
-        }
+            var px = xb * maze.tileSize - 0.5 * maze.width  + 1;
+            var py = yb * maze.tileSize - 0.5 * maze.height + 1;
 
-        //
-        //console.log([x, px, position.x]);
+            var dx = x + i;
+            var dy = y + j;
+            if(dx < 0 || dx >= maze.matrix.length) continue;
+            if(dy < 0 || dy >= maze.matrix[0].length) continue;
 
-
-        for(var i = -1; i <= 1; i++) {
-            for(var j = -1; j <= 1; j++) {
-                var xb = Math.floor( (position.z + 0.5 * maze.width )/maze.tileSize );
-                var yb = Math.floor( (position.x + 0.5 * maze.height)/maze.tileSize );
-
-                var x = Math.floor( (position.z + 0.5 * maze.width  - i * 0.9)/maze.tileSize );
-                var y = Math.floor( (position.x + 0.5 * maze.height - j * 0.9)/maze.tileSize );
-
-                var px = xb * maze.tileSize - 0.5 * maze.width  + 1;
-                var py = yb * maze.tileSize - 0.5 * maze.height + 1;
-
-                var dx = x + i;
-                var dy = y + j;
-                if(dx < 0 || dx >= maze.matrix.length) continue;
-                if(dy < 0 || dy >= maze.matrix[0].length) continue;
-
-                var idx = maze.matrix[dx][dy];
-                if(!idx || idx === NaN || idx === -1) continue;
+            var idx = maze.matrix[dx][dy];
+            if(!idx || idx === NaN || idx === -1) continue;
 
 
 
 
 
-                //continue;
-                //collidableMeshList.push(maze.objs[idx]);
-                if(j === 0) {
-                    if(i * (position.z - px) > 0) {
-                        position.z = px;
-                        speed.z = 0;
-                        treatCollision();
-                    }
-                } else if(i === 0) {
-                    if(j * (position.x - py) > 0) {
-                        position.x = py;
-                        speed.x = 0;
-                        treatCollision();
-                    }
+            //continue;
+            //collidableMeshList.push(maze.objs[idx]);
+            if(j === 0) {
+                if(i * (position.z - px) > 0) {
+                    position.z = px;
+                    speed.z = 0;
+                    treatCollision();
                 }
-                /*
-                else {
-                    
-                    if(i * (position.z - px) > 0) {
-                        position.z = px;
-                        speed.z = 0;
-                    }
-                    if(j * (position.x - py) > 0) {
-                        position.x = py;
-                        speed.x = 0;
-                    }
-                    
+            } else if(i === 0) {
+                if(j * (position.x - py) > 0) {
+                    position.x = py;
+                    speed.x = 0;
+                    treatCollision();
                 }
-                */
+            } else {
+                if(i * (position.z - px) > 0 && j * (position.x - py) > 0) {
+                    position.z = px;
+                    speed.z = 0;
+                    position.x = py;
+                    speed.x = 0;
+                }
             }
         }
-                
-
-//        return;
-
-        for(var i in collidableMeshList) {
-
-            //if(!this.porra) {
-            //   console.log(collidableMeshList[i]);
-            //}
-            var col = collision(mesh, collidableMeshList[i]);
-            if(col) {
-                console.log("COLIDIUU");
-                //treatCollision(col);
-                console.log(col);// + [collidableMeshList[i].position.x, collidableMeshList[i].position.y, collidableMeshList[i].position.z] );
-            }
-        }
-        this.porra = true;
     };
 
     var updateMesh = function() {
