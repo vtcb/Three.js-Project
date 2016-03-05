@@ -91,11 +91,13 @@ var Creature = function(maze) {
                     if(i * (position.z - px) > 0) {
                         position.z = px;
                         speed.z = 0;
+                        treatCollision();
                     }
                 } else if(i === 0) {
                     if(j * (position.x - py) > 0) {
                         position.x = py;
                         speed.x = 0;
+                        treatCollision();
                     }
                 }
                 /*
@@ -182,8 +184,8 @@ var Creature = function(maze) {
         getSpeed    : function()    {
             return speed;
         },
-        setSpeed    : function(speed)   {
-            speed = speed;
+        setSpeed    : function()   {
+            speed = arguments[0];
         },
         getPositionStr : function() {
             return '' + [position.x, position.y, position.z];

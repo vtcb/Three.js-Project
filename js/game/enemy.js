@@ -1,11 +1,11 @@
-var createEnemies = function(qtd, maze, speed, maze){
-	var geometry = new THREE.CylinderGeometry(1, 1, 2.5);
+var Enemy = function(maze, speed, height){
+	
+	var geometry = new THREE.CylinderGeometry(1, 1, height);
 	var texture  = undefined;
 	var material = new THREE.MeshBasicMaterial({color: 0xff0000});
-	var enemies = [];
-	var speed = speed;
-	var direction = direction_vectors['right'];
-
+	
+	var enemy = Creature.call(this, maze);
+	enemy.speedMod = speed;
 
 	var direction_vectors = {
 		left  : new THREE.Vector3(-1,  0,  0),
@@ -13,54 +13,56 @@ var createEnemies = function(qtd, maze, speed, maze){
 		right : new THREE.Vector3( 1,  0,  0),
 		down  : new THREE.Vector3( 0,  0,  1)
 	};
+	var directions = ['left', 'up', 'right', 'down'];
+	var direction = direction_vectors['right'];
 
+	var chooseDirection = function(){
+		var pos = enemy.getPos();
+		var maze = enemy.getMaze();
 
-	var chooseDirection = function(dir){
-		var prob = Math.random()*100;
-		
-	}
+		var dx = [-1, 0, 1, 0];
+		var dy = [0, -1, 0, 1];
 
-	var updateAcceleration = function(){
-		var pos = obj.getPos();
-		var maze = obj.getMaze();
+		var i = Math.floor((pos.x + maze.width/2 ) / maze.tileSize);
+		var j = Math.floor((pos.z + maze.height/2) / maze.tileSize);
 
-	}
+		//console.log([pos.x, pos.z, i, j]);
 
-	var treatCollision = function(dir){
-		var sp = obj.getSpeed();
-		var spAnt = sp.clone();
-		sp = sp.multiplyScalar(-1);
-		dir.projectOnVector(sp);
-		obj.setSpeed(dir);
-		var position = obj.getPos();
-		obj.setPos(position.add(dir));
-
-
-	}
-
-	var x = 0;
-	var y = 0;	
-	for(var i = 0; i < qtd; i++){
-		enemies[i] = Creature.call(this, maze);
-		enemies[i].setMesh(new THREE.Mesh(geometry, material));
-		enemies[i].setPos(new THREE.Vector3(y*maze.tileSize+maze.tileSize/2-(maze.width)/2, 0, 
-										x*maze.tileSize+maze.tileSize/2-(maze.height)/2));
-		enemies[i].setUpdateAcceleration(updateAcceleration);
-		enemies[i].setAccMod(0);
-		enemies[i].setDecMod(0);
-		enemies[i].setTreatCollision(treatCollision);
-		enemies[i].speedMod = speed;
-		y++;
-		if(y >= map.width){
-			y = 0;
-			x++;
+		var vet = [];
+		for(var k = 0; k < 4; k++){
+			var ii = i + dx[k];
+			var jj = j + dy[k];
+			if(ii >= 0 && jj >= 0 && ii < maze.matrix.length && jj < maze.matrix[0].length){
+				if(maze.matrix[ii][jj] === -1){
+					vet.push(direction_vectors[directions[k]]);
+				}
+			}
 		}
+
+
+		if(vet.length > 0) return vet[Math.floor(Math.random()*vet.length)].clone();
+		else return false;
 	}
 
+	var updateAcceleration = function() {
+		var dir = chooseDirection(0);
+		if(dir !== false) enemy.setSpeed(dir.multiplyScalar(enemy.speedMod));
 
+		//console.log(enemy.getSpeed());
+	}
 
-	return {
-		enemies: enemies, 
-		qtd: qtd
-	};
+	var treatCollision = function() {
+		var dir = chooseDirection(0);
+		if(dir !== false) enemy.setSpeed(dir.multiplyScalar(enemy.speedMod));
+		enemy.setSpeed((chooseDirection(1)).multiplyScalar(enemy.speedMod));
+	}
+
+	enemy.setMesh(new THREE.Mesh(geometry, material));
+	enemy.setUpdateAcceleration(updateAcceleration);
+	enemy.setAccMod(0);
+	enemy.setDecMod(0);
+	enemy.setTreatCollision(treatCollision);
+	enemy.setSpeed(new THREE.Vector3(1, 0, 0));
+
+	return enemy;
 }

@@ -77,11 +77,16 @@ var GenerateMaze = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
 
 	dfs(I_ini, J_ini);
 
-	/*
-	for(var i = 0; i < height; i++){
-		console.log(mat[i]);
+	for(var i = 1; i < height-1; i++){
+		for(var j = 1; j < width-1; j++){
+			if(mat[i][j] === 1){
+				var prob = Math.floor(Math.random()*100);
+				if(prob < 5){
+					mat[i][j] = 2;
+				}
+			}
+		}
 	}
-	*/
 
 	return{
 		getMat: function(){
