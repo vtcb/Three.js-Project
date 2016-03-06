@@ -9,7 +9,7 @@ var BuildMaze = function(maze, tam){
     var wall = new THREE.BoxGeometry(tam, tam, tam);
     var materialWalls = new THREE.MeshBasicMaterial({color: 0xaa00aa, wireframe:true});
 
-    var objs = [];
+    var objs = [], objs2 = [];
     objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(tamW, tamH), new THREE.MeshBasicMaterial());
     objs[0].rotation.x -= 0.5 * Math.PI;
 

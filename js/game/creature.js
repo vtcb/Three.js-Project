@@ -77,22 +77,26 @@ var Creature = function(maze) {
             //collidableMeshList.push(maze.objs[idx]);
             if(j === 0) {
                 if(i * (position.z - px) > 0) {
+                    console.log("leleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                     position.z = px;
                     speed.z = 0;
                     treatCollision();
                 }
             } else if(i === 0) {
                 if(j * (position.x - py) > 0) {
+                    console.log("lalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     position.x = py;
                     speed.x = 0;
                     treatCollision();
                 }
             } else {
                 if(i * (position.z - px) > 0 && j * (position.x - py) > 0) {
+                    console.log("liliiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                     position.z = px;
                     speed.z = 0;
                     position.x = py;
                     speed.x = 0;
+                    treatCollision();
                 }
             }
         }
@@ -102,6 +106,7 @@ var Creature = function(maze) {
         mesh.position.x = position.x;
         mesh.position.y = position.y;
         mesh.position.z = position.z;
+
         mesh2.position.x = position.x;
         mesh2.position.y = position.y;
         mesh2.position.z = position.z;

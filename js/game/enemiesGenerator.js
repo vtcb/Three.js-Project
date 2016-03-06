@@ -5,8 +5,9 @@ var EnemiesGenerator = function(maze, speed, qtd, height){
 	var y = 1;	
 	for(var i = 0; i < qtd; i++){
 		enemies[i] = new Enemy(maze, speed, height);
-		enemies[i].setPos(new THREE.Vector3(y*maze.tileSize+maze.tileSize/2-(maze.width)/2, height/2, 
-										x*maze.tileSize+maze.tileSize/2-(maze.height)/2));
+		enemies[i].setPos(new THREE.Vector3(y*maze.tileSize+0.9-0.5 * (maze.width), 0.5 * height, 
+										x*maze.tileSize+0.9-0.5 * (maze.height)));
+		enemies[i].lastTile = [x, y];
 		y+=2;
 		if(y >= maze.matrix.length){
 			y = 0;
