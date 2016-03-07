@@ -77,10 +77,6 @@ var GenerateMaze = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
 
 	dfs(I_ini, J_ini);
 
-	for(var i = 0; i < height; i++){
-		console.log(mat[i]);
-	}
-
 	var dx = [0, 1];
 	var dx2 = [0, -1];
 	var dy = [1, 0];

@@ -16,15 +16,18 @@ var Screen = function(kbh, winWidth, winHeight) {
     /* Meshes */
     var enemiesQtd = Global.enemies.qtd;
     var map = GenerateMaze(Global.maze.height, Global.maze.width, 0, 0, Global.maze.height-1, Global.maze.width-1);
-    var maze = BuildMaze(map, 2);
+    var maze = BuildMaze(map, Global.maze.tileSize);
  
     var player = new Player(
         kbh,
         Global.player.radius,
-        Global.player.initialPosition, 
+        new THREE.Vector3(
+            (Global.maze.width*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.width*2+1)*Global.maze.tileSize*0.5, 
+            1, 
+            (Global.maze.height*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.height*2+1)*Global.maze.tileSize*0.5), 
         maze
     );
-
+    
     var enemies = EnemiesGenerator(maze, Global.enemies.speed, enemiesQtd, 3);
 
     var floor = new Floor(kbh, maze.floor, maze.walls);

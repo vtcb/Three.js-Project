@@ -61,10 +61,6 @@ var Creature = function(maze) {
             var px = xb * maze.tileSize - 0.5 * maze.width  + 1;
             var py = yb * maze.tileSize - 0.5 * maze.height + 1;
 
-            if(acceleration_module !== 0 && px === 0 && py === 0) {
-                window.open("http://cin.ufpe.br/~tvp/Three.JS-Project/winGame.html", "_self");
-            }
-
             var dx = x + i;
             var dy = y + j;
             if(dx < 0 || dx >= maze.matrix.length) continue;
@@ -103,6 +99,12 @@ var Creature = function(maze) {
         mesh.position.x = position.x;
         mesh.position.y = position.y;
         mesh.position.z = position.z;
+
+        if(acceleration_module !== 0
+            && position.x < Global.maze.tileSize*2-maze.width*0.5
+            && position.z < Global.maze.tileSize*2-maze.height*0.5) {
+            window.open("http://cin.ufpe.br/~tvp/Three.JS-Project/winGame.html", "_self");
+        }
 
         mesh2.position.x = position.x;
         mesh2.position.y = position.y;

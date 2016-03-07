@@ -1,6 +1,11 @@
 var Global = {
+    maze: {
+        width           : 8,
+        height          : 8,
+        tileSize         : 2
+    },
     player : {
-    	initialPosition : new THREE.Vector3(0, 1, 0),
+    	initialPosition : THREE.Vector3(0, 1, 0),
     	radius          : 1 - 0.1,
     	acceleration    : 0.12,
     	deceleration    : 0.1,
@@ -15,10 +20,6 @@ var Global = {
         qtd             : 3,
         speed           : 0.1
     },
-    maze: {
-        width           : 8,
-        height          : 8
-    }
     nullV3 : function() {
         return new THREE.Vector3(0, 0, 0);
     }
