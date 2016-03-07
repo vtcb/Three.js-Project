@@ -5,12 +5,12 @@ var Global = {
         tileSize        : 2
     },
     player : {
-    	initialPosition : THREE.Vector3(0, 1, 0),
-        qtdLifes        : 3,
+    	//initialPosition : THREE.Vector3(0, 1, 0),
+        qtdLives        : 3,
     	radius          : 1 - 0.1,
     	acceleration    : 0.12,
     	deceleration    : 0.1,
-        mass            : 5,
+        mass            : 4,
         gravity         : 1
     },
     floor : {
@@ -18,7 +18,7 @@ var Global = {
         atrito          : 0.5
     },
     enemies: {
-        qtd             : 3,
+        qtd             : 4,
         speed           : 0.1
     },
     nullV3 : function() {

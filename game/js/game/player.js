@@ -14,10 +14,13 @@ var Player = function(kbh, radius, position, maze) {
 	var mesh2     = new THREE.Mesh(geometry2, material2);
 
 	var position = position;
+	var initialPos = Global.nullV3();
+
+	var collisionEnable	= true;
 
 	var acceleratingDirections = [];
 
-	var lifes = Global.player.qtdLifes;
+	var lives = Global.player.qtdLives;
 
 	var controls = {
 	    37 : 'left',    // Left  Arrow
@@ -67,7 +70,6 @@ var Player = function(kbh, radius, position, maze) {
 		acceleration.add(leanAcc);
 
 		if (leanAcc.x !== 0)	{
-			console.log("x =/= 0");
 			rotation.z = -Global.floor.angle*leanAcc.x/Math.abs(leanAcc.x);
 		}
 		else	{
@@ -75,7 +77,6 @@ var Player = function(kbh, radius, position, maze) {
 		}
 
 		if (leanAcc.z !== 0)	{
-			console.log("z =/= 0");
 			rotation.x = Global.floor.angle*leanAcc.z/Math.abs(leanAcc.z);
 		}
 		else	{
@@ -87,15 +88,27 @@ var Player = function(kbh, radius, position, maze) {
 	};
 
 	var updateObj = function(leanAcc, collidableObjects) {
+		var flag = false;
 		var col = collision(obj.getMesh2().clone(), collidableObjects);
 
 		if (col !== false)  {
-	    	console.log(">>> colisao! <<<");
+	    	//console.log(">>> colisão <<<");
+	    	console.log(obj.getInitialPosition().clone());
+	    	obj.setPos(obj.getInitialPosition().clone());
+	    	(obj.getUpdateMesh())();
+	    	lives--;
+
+	    	if (lives === 0)	{
+	    		flag = true;
+	    	}
 	    }
-		//console.info(obj.getMesh2().clone());
-		(obj.getUpdateAcceleration())(leanAcc);
-        (obj.getMove())();
-        (obj.getUpdateMesh())();
+	    else {
+			(obj.getUpdateAcceleration())(leanAcc);
+	        (obj.getMove())();
+	        (obj.getUpdateMesh())();
+    	}
+
+    	return flag;
     };
 
 	obj.setUpdateAcceleration(updateAcceleration);

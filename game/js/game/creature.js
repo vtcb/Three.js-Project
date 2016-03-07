@@ -2,6 +2,7 @@ var Creature = function(maze) {
     var acceleration       = Global.nullV3();
     var speed              = Global.nullV3();
     var position           = Global.nullV3();
+    var initialPos         = Global.nullV3();
     var rotation           = Global.nullV3();
     var mesh               = undefined;
     var mesh2              = undefined;
@@ -100,10 +101,10 @@ var Creature = function(maze) {
         mesh.position.y = position.y;
         mesh.position.z = position.z;
 
-        if(acceleration_module !== 0
+        if (acceleration_module !== 0
             && position.x < Global.maze.tileSize*2-maze.width*0.5
             && position.z < Global.maze.tileSize*2-maze.height*0.5) {
-            window.open("http://cin.ufpe.br/~tvp/Three.JS-Project/winGame.html", "_self");
+            window.open("../winGame.html", "_self");
         }
 
         mesh2.position.x = position.x;
@@ -177,6 +178,12 @@ var Creature = function(maze) {
         setRotation : function(rot) {
             rotation = rot;
         },
+        getInitialPosition : function()    {
+            return initialPos;
+        },
+        setInitialPosition : function(pos) {
+            initialPos = pos;
+        },
         getPosition : function()    {
             return position;
         },
@@ -200,7 +207,7 @@ var Creature = function(maze) {
         },
 
         update      : function(leanAcc, collidableObjects) {
-            updateObj(leanAcc, collidableObjects);
+            return updateObj(leanAcc, collidableObjects);
         }
     };
 };

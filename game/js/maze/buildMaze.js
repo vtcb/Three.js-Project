@@ -5,12 +5,12 @@ var BuildMaze = function(maze, tam){
     var tamW = width*tam;
     var tamH = height*tam;
 
-    //var texture = THREE.ImageUtils.loadTexture("assets/textWalls.jpg");
     var wall = new THREE.BoxGeometry(tam, tam, tam);
     var materialWalls = new THREE.MeshBasicMaterial({color: 0xaa00aa, wireframe:true});
 
     var objs = [];
-    objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(tamW, tamH), new THREE.MeshBasicMaterial());
+    var texture = THREE.ImageUtils.loadTexture("./assets/textures/floor.jpg");
+    objs[0] = new THREE.Mesh(new THREE.PlaneGeometry(tamW, tamH), new THREE.MeshBasicMaterial(/*{map : texture}*/));
     objs[0].rotation.x -= 0.5 * Math.PI;
 
     for(var i = 0; i < height; i++){

@@ -24,9 +24,15 @@ var Screen = function(kbh, winWidth, winHeight) {
         new THREE.Vector3(
             (Global.maze.width*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.width*2+1)*Global.maze.tileSize*0.5, 
             1, 
-            (Global.maze.height*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.height*2+1)*Global.maze.tileSize*0.5), 
+            (Global.maze.height*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.height*2+1)*Global.maze.tileSize*0.5),
         maze
     );
+
+    player.setInitialPosition( new THREE.Vector3(
+                              (Global.maze.width*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.width*2+1)*Global.maze.tileSize*0.5, 
+                              1, 
+                              (Global.maze.height*2-1)*Global.maze.tileSize+Global.maze.tileSize*0.5-(Global.maze.height*2+1)*Global.maze.tileSize*0.5)
+                        );
     
     var enemies = EnemiesGenerator(maze, Global.enemies.speed, enemiesQtd, 3);
 
@@ -67,9 +73,13 @@ var Screen = function(kbh, winWidth, winHeight) {
         update    : function() {
             orbit_controls.update();
             floor.update();
-            player.update(floor.getLeanAcc(), collidableObjects);
-            for(var i = 0; i < enemiesQtd; i++) {
-                enemies[i].update();
+            if (player.update(floor.getLeanAcc(), collidableObjects) === true)  {
+                window.open("../overGame.html", "_self");
+            }
+            else {
+                for(var i = 0; i < enemiesQtd; i++) {
+                    enemies[i].update();
+                }
             }
         },
         render    : function(renderer) {
