@@ -2,10 +2,11 @@ var Global = {
     maze: {
         width           : 8,
         height          : 8,
-        tileSize         : 2
+        tileSize        : 2
     },
     player : {
     	initialPosition : THREE.Vector3(0, 1, 0),
+        qtdLifes        : 3,
     	radius          : 1 - 0.1,
     	acceleration    : 0.12,
     	deceleration    : 0.1,

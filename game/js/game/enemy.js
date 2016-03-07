@@ -4,8 +4,8 @@ var Enemy = function(maze, speed, height){
 	var texture  = undefined;
 	var material = new THREE.MeshBasicMaterial({color: 0xff0000});
 
-	var geometry2 = new THREE.BoxGeometry(2, 2, 2);
-	var material2 = new THREE.MeshBasicMaterial({color : '#FFFF00', wireframe : true});
+	var geometry2 = new THREE.BoxGeometry(1.8, height, 1.8);
+	var material2 = new THREE.MeshBasicMaterial({color : '#2000FF', wireframe : true});
 	
 	var enemy = Creature.call(this, maze);
 	enemy.speedMod = speed;

@@ -115,6 +115,12 @@ var Creature = function(maze) {
         mesh2.rotation.z = rotation.z;
     };
 
+    var updateObj = function(leanAcc, collidableObjects) {
+        updateAcceleration(leanAcc);
+        move();
+        updateMesh();
+    };
+
     return {
         setAcc : function() {
             acceleration = arguments[0];
@@ -142,6 +148,18 @@ var Creature = function(maze) {
         },
         setUpdateAcceleration : function(func) {
             updateAcceleration = func;
+        },
+        getUpdateAcceleration : function()  {
+            return updateAcceleration;
+        },
+        getMove : function()  {
+            return move;
+        },
+        getUpdateMesh : function()  {
+            return updateMesh;
+        },
+        setUpdateObj : function(func) {
+            updateObj = func;
         },
         getMesh     : function()    {
             return mesh;
@@ -181,10 +199,8 @@ var Creature = function(maze) {
             return maze;
         },
 
-        update      : function(leanAcc) {
-            updateAcceleration(leanAcc);
-            move();
-            updateMesh();
+        update      : function(leanAcc, collidableObjects) {
+            updateObj(leanAcc, collidableObjects);
         }
     };
 };

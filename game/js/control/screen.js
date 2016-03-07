@@ -32,6 +32,8 @@ var Screen = function(kbh, winWidth, winHeight) {
 
     var floor = new Floor(kbh, maze.floor, maze.walls);
 
+    var collidableObjects = [];
+
     /* Set shadows */
     //player.getMesh().castShadow = true;
 
@@ -49,7 +51,9 @@ var Screen = function(kbh, winWidth, winHeight) {
     scene.add(floor.getMapWalls());
 
     for(var i = 0; i < enemiesQtd; i++) {
+        collidableObjects.push(enemies[i].getMesh2());
         scene.add(enemies[i].getMesh());
+        scene.add(enemies[i].getMesh2());
     }
 
     return {
@@ -63,7 +67,7 @@ var Screen = function(kbh, winWidth, winHeight) {
         update    : function() {
             orbit_controls.update();
             floor.update();
-            player.update(floor.getLeanAcc());
+            player.update(floor.getLeanAcc(), collidableObjects);
             for(var i = 0; i < enemiesQtd; i++) {
                 enemies[i].update();
             }

@@ -17,6 +17,8 @@ var Player = function(kbh, radius, position, maze) {
 
 	var acceleratingDirections = [];
 
+	var lifes = Global.player.qtdLifes;
+
 	var controls = {
 	    37 : 'left',    // Left  Arrow
 	    38 : 'up',      // Up    Arrow
@@ -84,11 +86,24 @@ var Player = function(kbh, radius, position, maze) {
 		obj.setAcc(acceleration);
 	};
 
+	var updateObj = function(leanAcc, collidableObjects) {
+		var col = collision(obj.getMesh2().clone(), collidableObjects);
+
+		if (col !== false)  {
+	    	console.log(">>> colisao! <<<");
+	    }
+		//console.info(obj.getMesh2().clone());
+		(obj.getUpdateAcceleration())(leanAcc);
+        (obj.getMove())();
+        (obj.getUpdateMesh())();
+    };
+
 	obj.setUpdateAcceleration(updateAcceleration);
 	obj.setAccMod(Global.player.acceleration);
 	obj.setDecMod(Global.player.deceleration);
 	obj.setPos(position);
 	obj.setMesh(mesh, mesh2);
+	obj.setUpdateObj(updateObj);
 
 	return obj;
 };
