@@ -61,6 +61,10 @@ var Creature = function(maze) {
             var px = xb * maze.tileSize - 0.5 * maze.width  + 1;
             var py = yb * maze.tileSize - 0.5 * maze.height + 1;
 
+            if(acceleration_module !== 0 && px === 0 && py === 0) {
+                window.open("http://cin.ufpe.br/~tvp/Three.JS-Project/winGame.html", "_self");
+            }
+
             var dx = x + i;
             var dy = y + j;
             if(dx < 0 || dx >= maze.matrix.length) continue;
@@ -69,29 +73,22 @@ var Creature = function(maze) {
             var idx = maze.matrix[dx][dy];
             if(!idx || idx === NaN || idx === -1) continue;
 
-
-
-
-
             //continue;
             //collidableMeshList.push(maze.objs[idx]);
             if(j === 0) {
                 if(i * (position.z - px) > 0) {
-                    console.log("leleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                     position.z = px;
                     speed.z = 0;
                     treatCollision();
                 }
             } else if(i === 0) {
                 if(j * (position.x - py) > 0) {
-                    console.log("lalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     position.x = py;
                     speed.x = 0;
                     treatCollision();
                 }
             } else {
                 if(i * (position.z - px) > 0 && j * (position.x - py) > 0) {
-                    console.log("liliiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                     position.z = px;
                     speed.z = 0;
                     position.x = py;

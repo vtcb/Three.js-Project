@@ -9,7 +9,7 @@ var Enemy = function(maze, speed, height){
 	
 	var enemy = Creature.call(this, maze);
 	enemy.speedMod = speed;
-	enemy.lastDirection = 'right';
+	enemy.lastDirection = undefined;
 	enemy.lastTile = undefined;
 
 	var direction_vectors = {
@@ -66,12 +66,9 @@ var Enemy = function(maze, speed, height){
 
 	var updateAcceleration = function() {
 		var dir = chooseDirection();
-		console.log(dir);
-		//console.log(enemy.lastDirection);
 		if(dir !== false) {
 			enemy.lastDirection = dir;
 			enemy.setSpeed(direction_vectors[dir].clone().multiplyScalar(enemy.speedMod));
-			//console.log(enemy.getSpeed());
 		}
 		else{
 			enemy.setSpeed(direction_vectors[enemy.lastDirection].clone().multiplyScalar(enemy.speedMod));
@@ -80,7 +77,6 @@ var Enemy = function(maze, speed, height){
 
 	var treatCollision = function() {
 		var dir = chooseDirection();
-		console.log(dir);
 		if(dir !== false) {
 			enemy.lastDirection = dir;
 			enemy.setSpeed(direction_vectors[dir].clone().multiplyScalar(enemy.speedMod));
@@ -88,7 +84,6 @@ var Enemy = function(maze, speed, height){
 		else {
 			enemy.lastDirection = opposites[enemy.lastDirection];
 			enemy.setSpeed(direction_vectors[opposites[enemy.lastDirection]].clone().multiplyScalar(enemy.speedMod));
-			//console.log(enemy.getSpeed());
 		}
 
 	}
@@ -98,7 +93,6 @@ var Enemy = function(maze, speed, height){
 	enemy.setAccMod(0);
 	enemy.setDecMod(0);
 	enemy.setTreatCollision(treatCollision);
-	enemy.setSpeed(new THREE.Vector3(0.1, 0, 0));
 
 	return enemy;
 }

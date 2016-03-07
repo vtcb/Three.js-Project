@@ -11,6 +11,14 @@ var Global = {
         angle           : Math.PI/100,
         atrito          : 0.5
     },
+    enemies: {
+        qtd             : 3,
+        speed           : 0.1
+    },
+    maze: {
+        width           : 8,
+        height          : 8
+    }
     nullV3 : function() {
         return new THREE.Vector3(0, 0, 0);
     }

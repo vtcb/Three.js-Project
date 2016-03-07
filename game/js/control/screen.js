@@ -14,8 +14,8 @@ var Screen = function(kbh, winWidth, winHeight) {
     //spotLight.castShadow = true;
 
     /* Meshes */
-    var enemiesQtd = 3;
-    var map = GenerateMaze(15, 15, 0, 0, 24, 14);
+    var enemiesQtd = Global.enemies.qtd;
+    var map = GenerateMaze(Global.maze.height, Global.maze.width, 0, 0, Global.maze.height-1, Global.maze.width-1);
     var maze = BuildMaze(map, 2);
  
     var player = new Player(
@@ -25,7 +25,7 @@ var Screen = function(kbh, winWidth, winHeight) {
         maze
     );
 
-    var enemies = EnemiesGenerator(maze, 0.1, enemiesQtd, 3);
+    var enemies = EnemiesGenerator(maze, Global.enemies.speed, enemiesQtd, 3);
 
     var floor = new Floor(kbh, maze.floor, maze.walls);
 
@@ -64,8 +64,6 @@ var Screen = function(kbh, winWidth, winHeight) {
             for(var i = 0; i < enemiesQtd; i++) {
                 enemies[i].update();
             }
-            //camera.lookAt(player.getPosition());
-            //console.log(player.getPositionStr());
         },
         render    : function(renderer) {
             renderer.render(scene, camera);

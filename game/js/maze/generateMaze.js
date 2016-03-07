@@ -77,12 +77,33 @@ var GenerateMaze = function(w, h, I_ini1, J_ini1, I_end1, J_end1){
 
 	dfs(I_ini, J_ini);
 
+	for(var i = 0; i < height; i++){
+		console.log(mat[i]);
+	}
+
+	var dx = [0, 1];
+	var dx2 = [0, -1];
+	var dy = [1, 0];
+	var dy2 = [-1, 0];
+
 	for(var i = 1; i < height-1; i++){
 		for(var j = 1; j < width-1; j++){
 			if(mat[i][j] === 1){
 				var prob = Math.floor(Math.random()*100);
-				if(prob < 5){
-					mat[i][j] = 2;
+				var flag = 0;
+				if(prob < 25){
+					for(var k = 0; k < 4; k++) {
+						var x  = i + dx[k];
+						var y  = j + dy[k];
+						var xx = i + dx2[k];
+						var yy = j + dy2[k];
+
+						if(x >= 0 && y >= 0 && x < height && y < width && xx >= 0 && yy >= 0 && xx < height && yy < width) {
+							if(mat[x][y] === 1 && mat[xx][yy] === 1) flag = 1;
+						}
+					}
+
+					if(flag === 1) mat[i][j] = 2;
 				}
 			}
 		}
