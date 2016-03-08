@@ -1,11 +1,14 @@
 var Enemy = function(maze, speed, height){
 	
-	var geometry = new THREE.CylinderGeometry(0.9, 0.9, height);
-	var texture  = undefined;
-	var material = new THREE.MeshBasicMaterial({color: 0xff0000});
+	var geometry = new THREE.CylinderGeometry(0.9, 0.9, height, 20, 1, true);
+	var texture  = THREE.ImageUtils.loadTexture("./assets/textures/bear.jpg");
+	var material = new THREE.MeshBasicMaterial({map : texture});
 
 	var geometry2 = new THREE.BoxGeometry(1.8, height, 1.8);
-	var material2 = new THREE.MeshBasicMaterial({color : '#2000FF', wireframe : true});
+	var material2 = new THREE.MeshBasicMaterial({color : '#2000FF', transparent: true, opacity : 0});
+
+	mesh = new THREE.Mesh(geometry, material);
+	mesh.rotation.y = Math.PI;
 	
 	var enemy = Creature.call(this, maze);
 	enemy.speedMod = speed;
@@ -88,7 +91,7 @@ var Enemy = function(maze, speed, height){
 
 	}
 
-	enemy.setMesh(new THREE.Mesh(geometry, material), new THREE.Mesh(geometry2, material2));
+	enemy.setMesh(mesh, new THREE.Mesh(geometry2, material2));
 	enemy.setUpdateAcceleration(updateAcceleration);
 	enemy.setAccMod(0);
 	enemy.setDecMod(0);

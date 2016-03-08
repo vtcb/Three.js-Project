@@ -6,7 +6,7 @@ var main = function() {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.setClearColor(0x000000, 1.0);
-    renderer.setSize(winWidth/2, winHeight/2);
+    renderer.setSize(winWidth/1.25, winHeight/1.25);
 
     var kbh = new KBHandler();
 

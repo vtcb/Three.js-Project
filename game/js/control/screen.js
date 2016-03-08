@@ -3,8 +3,8 @@ var Screen = function(kbh, winWidth, winHeight) {
     var scene          = new THREE.Scene();
     var orbit_controls = new THREE.OrbitControls(camera);
  
-    camera.position.y = 20;
-    camera.position.z = 20;
+    camera.position.y = 30;
+    camera.position.z = 15;
     camera.lookAt(scene.position);
 
     /* Light */
@@ -36,25 +36,19 @@ var Screen = function(kbh, winWidth, winHeight) {
     
     var enemies = EnemiesGenerator(maze, Global.enemies.speed, enemiesQtd, 3);
 
+    var oscar = new Oscar(maze, 3);
+
     var floor = new Floor(kbh, maze.floor, maze.walls);
 
     var collidableObjects = [];
-
-    /* Set shadows */
-    //player.getMesh().castShadow = true;
-
-    //floor.getMapFloor().receiveShadow = true;
-    //floor.getMapWalls().castShadow = true;
-    //floor.getMapWalls().receiveShadow = true;
-
-    /* Add objects to scene */
-    //scene.add(spotLight);
 
     scene.add(player.getMesh());
     scene.add(player.getMesh2());
 
     scene.add(floor.getMapFloor());
     scene.add(floor.getMapWalls());
+
+    scene.add(oscar.getMesh());
 
     for(var i = 0; i < enemiesQtd; i++) {
         collidableObjects.push(enemies[i].getMesh2());

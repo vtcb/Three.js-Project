@@ -5,13 +5,17 @@ var Player = function(kbh, radius, position, maze) {
 	var geometry  = new THREE.SphereGeometry(radius, 50, 50);
 	var geometry2 = new THREE.BoxGeometry(2, 2, 2);
 	
-	var texture   = undefined;
-	
-	var material  = new THREE.MeshNormalMaterial();
-	var material2 = new THREE.MeshBasicMaterial({color : '#FFFF00', wireframe : true});
+	var texture   = THREE.ImageUtils.loadTexture("./assets/textures/leodicaprio.jpg");
+
+	var material  = new THREE.MeshBasicMaterial({map : texture});
+	var material2 = new THREE.MeshBasicMaterial({color : '#FFFF00', transparent: true, opacity : 0});
 	
 	var mesh      = new THREE.Mesh(geometry, material);
 	var mesh2     = new THREE.Mesh(geometry2, material2);
+
+	mesh.rotation.x = -0.15*Math.PI;
+	mesh.rotation.y = 1.5*Math.PI;
+	mesh.rotation.z = 1;
 
 	var position = position;
 	var initialPos = Global.nullV3();
@@ -23,15 +27,10 @@ var Player = function(kbh, radius, position, maze) {
 	var lives = Global.player.qtdLives;
 
 	var controls = {
-	    37 : 'left',    // Left  Arrow
-	    38 : 'up',      // Up    Arrow
-	    39 : 'right',	// Right Arrow
-	    40 : 'down',	// Down  Arrow
-	    65 : 'left',	// A
+	    /*65 : 'left',	// A
 	    87 : 'up',		// W
 	    68 : 'right',	// D
-	    83 : 'down',	// S
-	    32 : 'jump'		// Space bar
+	    83 : 'down',	// S*/
 	};
 
 	var direction_vectors = {
@@ -89,11 +88,11 @@ var Player = function(kbh, radius, position, maze) {
 
 	var updateObj = function(leanAcc, collidableObjects) {
 		var flag = false;
-		var col = collision(obj.getMesh2().clone(), collidableObjects);
+		var col = collision(obj.getMesh2(), collidableObjects);
 
 		if (col !== false)  {
 	    	//console.log(">>> colisão <<<");
-	    	console.log(obj.getInitialPosition().clone());
+	    	//console.log(obj.getInitialPosition().clone());
 	    	obj.setPos(obj.getInitialPosition().clone());
 	    	(obj.getUpdateMesh())();
 	    	lives--;

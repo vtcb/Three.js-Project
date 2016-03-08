@@ -5,11 +5,10 @@ var Floor = function(kbh, mapFloor, mapWalls) {
     var direction = Global.nullV3();
 
     var controls = {
-        72 : 'left',    // H
-        85 : 'up',      // U
-        75 : 'right',   // K
-        74 : 'down',    // J
-        32 : 'jump'     // Space bar
+        37 : 'left',    // Left  Arrow
+        38 : 'up',      // Up    Arrow
+        39 : 'right',   // Right Arrow
+        40 : 'down',    // Down  Arrow
     };
 
     var direction_vectors = {
